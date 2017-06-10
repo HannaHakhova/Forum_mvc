@@ -1,0 +1,120 @@
+﻿@model FORUM.WEB.Models.TopicPostsModel
+
+@{
+    ViewBag.Title = @Model.TopicName;
+}
+
+<h2>@Model.TopicName</h2>
+<br />
+    
+<div class="row">
+    <fieldset>
+        <div class="col-md-12">
+            <div class="col-md-2">
+                <img src="~/Content/Img/Avatars/@ViewBag.Avatar" alt="This user does not have any avatar" height="100" />
+            </div>
+        <div class="col-md-9">
+            <b>Created by: </b>
+            @Model.UserName
+            <br />
+            <b>Creation date: </b>
+            @Model.CreationDate
+            <br />
+            <b>Topic description: </b>
+            @Model.Description
+            <br />
+        </div>
+       </div>
+</fieldset>
+</div>
+
+<div class="row">
+    <fieldset>
+        @foreach (FORUM.WEB.Models.PostModel item in Model.Posts)
+        {
+            <div class="col-md-12">
+                <div class="col-md-2">
+                    <img src="~/Content/Img/Avatars/@ViewBag.Avatar" alt="This user does not have any avatar" height="100" />
+                </div>
+                <div class="col-md-8" style="border: 1px solid grey; border-radius: 5px">
+                    @if (item.UserName != null)
+                    {
+                        <div class="col-md-3" style="border: 1px solid #eee; border-radius: 5px">
+                            <span><i class="fa fa-user"></i> @item.UserName</span>
+                        </div>
+                        <div class="col-md-2" style="border: 1px solid #eee; border-radius: 5px">
+                            <span><i class="fa fa-calendar"></i> @item.PostTime.ToShortDateString()</span>
+                        </div>
+                        <div class="col-md-2" style="border: 1px solid #eee; border-radius: 5px">
+                            <span><i class="fa fa-clock-o"></i> @item.PostTime.ToShortTimeString()</span>
+                        </div>
+                    }
+                    <div class="col-md-12" style="border: 1px solid #eee; border-radius: 5px">
+                        <br />
+                        @item.Message
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    @if (User.IsInRole("Administrator") || User.IsInRole("Moderator"))
+                    {
+
+                        using (Html.BeginForm("DeleteConfirmed", "Post", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true)
+                            <input name="postId" type="hidden" value="@item.Id" />
+                            <div class="col-md-1">
+                                <input type="submit" class="btn btn-danger" value="Delete" />
+                            </div>
+
+                        }
+                    }
+                </div>
+            </div>
+
+
+
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <br />
+                </div>
+            </div>
+        }
+    </fieldset>
+</div>
+
+<div class="row">
+    <fieldset>
+     
+            <div class="col-md-12">
+                 <div class="col-md-2">
+                 </div>
+                <div class="col-md-3">
+
+                    @if (!Request.IsAuthenticated)
+                    {
+                        <h5> Do you want to reply?</h5>
+                        <h5>Please <a class="btn btn-default" href="@Url.Action("Login", "Account")"><span class="fa fa-sign-in"></span> Sign in</a> or <a class="btn btn-default" href="@Url.Action("Register", "Account")">Register</a></h5> 
+                    }
+                    @if (Request.IsAuthenticated)
+                    {
+                        using (Html.BeginForm("Create", "Post", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true)
+                            @Html.HiddenFor(model => model.Id)
+                            <textarea  name="message" rows="5" cols="80"> </textarea>
+                            <input type="submit" class="btn btn-success" value="New post"/>
+
+                        }
+                    }
+                </div>
+                
+            </div> 
+                    
+        
+    </fieldset>
+</div>
+
+
+

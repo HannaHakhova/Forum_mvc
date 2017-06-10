@@ -1,0 +1,59 @@
+﻿@using PagedList;
+@using FORUM.WEB.Models;
+@using PagedList.Mvc;
+@model IPagedList<ForumModel>
+
+     
+
+    @{
+        ViewBag.Title = "Subforum list";
+    }
+
+    <h2>Subforum list</h2>
+@if (User.IsInRole("Administrator")|| User.IsInRole("Moderator"))
+{
+    <p>
+        <a class="btn btn-success" href="/Forum/Create"><span class="fa fa-pencil fa-fw"></span> Create subforum</a>
+    </p>
+}
+ 
+<table class="table">
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <h3><a href="/Topic/TopicsByForum/?forumId=@item.Id">@item.Name</a></h3>
+            </td>
+            <td>
+                @item.Description
+            </td>
+            <td>
+                <h3>@item.TopicCount</h3>
+                <br />
+                topics
+            </td>
+            <td>
+                <h3>@item.PostCount</h3>
+                <br />
+                posts
+            </td>
+               
+               
+                
+            @if (User.IsInRole("Administrator") || User.IsInRole("Moderator"))
+            {
+                <td>
+                    <a class="btn btn-default" href="/Forum/EditForum?forumId=@item.Id"><span class="fa fa-pencil fa-fw"></span> Edit </a>
+                </td>
+                <td>
+                    <a class="btn btn-danger" href="/Forum/DeleteForum?forumId=@item.Id"><span class="fa fa-trash-o fa-lg"></span> Delete </a>
+                </td>
+            }
+        </tr>
+
+    }
+
+</table>
+<td align="center" colspan="5">
+    @Html.PagedListPager(Model, page => Url.Action("ForumList", "Forum", new { page }))
+</td>

@@ -1,0 +1,62 @@
+﻿@model FORUM.WEB.Models.TopicModel
+
+@{
+    ViewBag.Title = "Delete topic";
+}
+
+<h2>Delete topic</h2>
+
+<h3>Are you sure you want to delete "@Model.Title" topic?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            Post count
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PostCount)
+        </dd>
+
+        <dt>
+            Creation Date
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreationDate)
+        </dd>
+
+
+
+
+    </dl>
+
+    @if (User.IsInRole("Administrator") || User.IsInRole("Moderator"))
+    {
+        using (Html.BeginForm("DeleteTopic", "Topic", FormMethod.Post))
+        {
+            <p>
+                <input name="topicId" type="hidden" value="@Model.Id" />
+                <input class="btn btn-default" type="submit" value="Yes, remove it" />
+                <a class="btn btn-default" href="/Topic/TopicsByForum/?forumId=@Model.ForumId"><span class="fa fa-history"></span> No, back to topic list</a>
+            </p>
+        }
+
+    }
+</div>

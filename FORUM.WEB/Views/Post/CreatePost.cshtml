@@ -1,0 +1,35 @@
+﻿@using FORUM.WEB.Models
+@model PostModel
+
+@{
+    ViewBag.Title = "Create post";
+}
+
+<div class="container">
+    <h3>Create post</h3>
+    <div class="row">
+        <div class="col-md-6">
+            @using (Html.BeginForm("CreatePost", "Post", FormMethod.Post))
+            {
+                <div class="panel panel-default">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="panel-heading">Post name</div>
+                    <div class="panel-body">
+                        <div class="editor-field">
+                            @Html.EditorFor(model => model.Message, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                    
+                        @Html.ValidationMessageFor(model => model.TopicId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <input type="submit" value="Create post" class="btn btn-default">
+            }
+        </div>
+    </div>
+</div>
+
+
+

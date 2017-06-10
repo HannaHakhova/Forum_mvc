@@ -1,0 +1,13 @@
+C:\Users\Annette\Documents\Visual Studio 2015\Projects\FORUM\FORUM.DAL\bin\Debug\FORUM.DAL.dll.config
+C:\Users\Annette\Documents\Visual Studio 2015\Projects\FORUM\FORUM.DAL\bin\Debug\FORUM.DAL.dll
+C:\Users\Annette\Documents\Visual Studio 2015\Projects\FORUM\FORUM.DAL\bin\Debug\FORUM.DAL.pdb
+C:\Users\Annette\Documents\Visual Studio 2015\Projects\FORUM\FORUM.DAL\bin\Debug\EntityFramework.dll
+C:\Users\Annette\Documents\Visual Studio 2015\Projects\FORUM\FORUM.DAL\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Annette\Documents\Visual Studio 2015\Projects\FORUM\FORUM.DAL\bin\Debug\Microsoft.AspNet.Identity.Core.dll
+C:\Users\Annette\Documents\Visual Studio 2015\Projects\FORUM\FORUM.DAL\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\Annette\Documents\Visual Studio 2015\Projects\FORUM\FORUM.DAL\bin\Debug\EntityFramework.xml
+C:\Users\Annette\Documents\Visual Studio 2015\Projects\FORUM\FORUM.DAL\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Annette\Documents\Visual Studio 2015\Projects\FORUM\FORUM.DAL\bin\Debug\Microsoft.AspNet.Identity.Core.xml
+C:\Users\Annette\Documents\Visual Studio 2015\Projects\FORUM\FORUM.DAL\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\Annette\Documents\Visual Studio 2015\Projects\FORUM\FORUM.DAL\obj\Debug\FORUM.DAL.dll
+C:\Users\Annette\Documents\Visual Studio 2015\Projects\FORUM\FORUM.DAL\obj\Debug\FORUM.DAL.pdb

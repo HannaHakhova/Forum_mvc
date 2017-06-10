@@ -1,0 +1,62 @@
+﻿@using PagedList;
+@using FORUM.WEB.Models;
+@using PagedList.Mvc;
+@model IPagedList<TopicModel>
+
+@{
+    ViewBag.Title = ViewBag.Forum + " topic list ";
+}
+
+<h2>Topic list of @ViewBag.Forum</h2>
+
+
+@if (!Request.IsAuthenticated)
+{
+    <h4> If you have a question, please <a class="btn btn-default" href="@Url.Action("Login", "Account")"><span class="fa fa-sign-in"></span> Sign in</a> or <a class="btn btn-default" href="@Url.Action("Register", "Account")">Register</a></h4>
+}
+@if (Request.IsAuthenticated)
+{
+    
+    <h4> @ViewBag.EmptyListOfTopics</h4>
+    
+    <p>
+        <a class="btn btn-success" href="/Topic/Create"><span class="fa fa-pencil fa-fw"></span> Create topic</a>
+    </p>
+    
+}
+
+<table class="table">
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <h4><a href="/Topic/TopicPosts/@item.Id">@item.Title</a></h4>
+                @item.Description
+            </td>
+            <td>
+                <h5><span><i class="fa fa-user"></i> @item.UserName</span></h5>
+                <h5><span><i class="fa fa-calendar"></i> @item.CreationDate</span></h5>
+            </td>
+            <td>
+                <h4>@item.PostCount</h4>
+                <h5>posts</h5>
+            </td>
+
+
+
+            @if (User.IsInRole("Administrator") || User.IsInRole("Moderator"))
+            {
+                <td>
+                    <a class="btn btn-default" href="/Topic/EditTopic?topicId=@item.Id"><span class="fa fa-pencil fa-fw"></span> Edit </a>
+                </td>
+                <td>
+                    <a class="btn btn-danger" href="/Topic/DeleteTopic?topicId=@item.Id"><span class="fa fa-trash-o fa-lg"></span> Delete </a>
+                </td>
+            }
+        </tr>
+    }
+
+</table>
+<td align="center" colspan="5">
+@Html.PagedListPager(Model, page => Url.Action("TopicsByForum", "Topic", new { page }))
+</td>

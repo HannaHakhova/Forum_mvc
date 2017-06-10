@@ -1,0 +1,63 @@
+﻿@model FORUM.WEB.Models.ForumModel
+
+@{
+    ViewBag.Title = "Delete subforum";
+}
+
+<h2>Delete subforum</h2>
+
+<h3>Are you sure you want to delete @Model.Name subforum?</h3>
+<div>
+   <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            Topic count
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TopicCount)
+        </dd>
+
+        <dt>
+           Post count
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PostCount)
+        </dd>
+
+
+
+
+    </dl>
+
+    @if (User.IsInRole("Administrator") || User.IsInRole("Moderator"))
+    {
+        using (Html.BeginForm("DeleteSubforum", "Forum", FormMethod.Post))
+        {
+            <p>
+                <input name="forumId" type="hidden" value="@Model.Id" />
+                <input class="btn btn-default" type="submit" value="Yes, remove it" />
+                <a class="btn btn-default" href="/Forum/ForumList"><span class="fa fa-history"></span> No, back to subforum list</a>
+                <a class="btn btn-default" href="/Topic/TopicsByForum/?forumId=@Model.Id"><span class="fa fa-search"></span> Search topics of this subforum</a>
+            </p>
+        }
+
+    }
+</div>

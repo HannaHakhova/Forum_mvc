@@ -1,0 +1,29 @@
+﻿@model FORUM.WEB.Models.UserModel
+
+@{
+    ViewBag.Title = "Edit user";
+}
+<div class="container">
+    <h2>Edit user @Model.UserName</h2>
+    <div class="row">
+        @using (Html.BeginForm("EditUser", "Admin", FormMethod.Post))
+        {
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="panel-heading">User roles</div>
+                    <div class="panel-body">
+                        <input type="checkbox" name="Roles" value="User" @(Model.Roles.Where(r => r == "User").FirstOrDefault() != null ? "checked" : "")> <label>User</label> <br />
+                        <input type="checkbox" name="Roles" value="Moderator" @(Model.Roles.Where(r => r == "Moderator").FirstOrDefault() != null ? "checked" : "")> <label>Moderator</label><br />
+                        <input type="checkbox" name="Roles" value="Administrator" @(Model.Roles.Where(r => r == "Administrator").FirstOrDefault() != null ? "checked" : "")> <label>Administrator</label><br />
+                    </div>
+                </div>
+                <input name="UserName" type="hidden" value="@Model.UserName" />
+                <input type="submit" value="Submit" class="btn btn-default" />
+            </div>
+        }
+    </div>
+</div>
+
+
+

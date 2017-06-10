@@ -1,0 +1,59 @@
+﻿@model FORUM.WEB.Models.ForumModel
+
+@{
+    ViewBag.Title = "Edit subforum";
+}
+
+<h2>Edit subforum</h2>
+
+@if (User.IsInRole("Administrator") || User.IsInRole("Moderator"))
+{
+    using (Html.BeginForm("Edit", "Forum", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>@Model.Name subforum</h4>
+            <hr/>
+            @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.PostCount)
+            @Html.HiddenFor(model => model.TopicCount)
+            @Html.HiddenFor(m=>m.UserId)
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name, htmlAttributes: new {@class = "control-label col-md-2"})
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.Name, new {cols = 35, @rows = 1})
+                    @Html.ValidationMessageFor(model => model.Name, "", new {@class = "text-danger"})
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Description, htmlAttributes: new {@class = "control-label col-md-2"})
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.Description, new {cols = 35, @rows = 5})
+                    @Html.ValidationMessageFor(model => model.Description, "", new {@class = "text-danger"})
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+
+                    <p>
+                        <input name="forumId" type="hidden" value="@Model.Id"/>
+                        <input class="btn btn-default" type="submit" value="Save changes"/>
+                        <a class="btn btn-default" href="/Forum/ForumList"><span class="fa fa-history"></span> Back to subforum list</a>
+                    </p>
+               
+                </div>
+            </div>
+        </div>
+
+
+
+    }
+}
+
+           

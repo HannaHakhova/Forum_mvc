@@ -1,0 +1,62 @@
+﻿@using Microsoft.AspNet.Identity
+@{
+    ViewBag.Title = "Home";
+}
+<div class="container">
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner" role="listbox">
+            <div class="item active">
+                <div class="jumbotron">
+                    <h1>Live In Code Forum!<br /></h1>
+                    <p>
+                        The forum "Live In Code" was created for beginners and pros, for schoolchildren and students, for all those who live in code!
+                        <br />
+                        Do you have a question? Welcome!
+                    </p>
+                    
+                    @if (Request.IsAuthenticated && User.IsInRole("User"))
+                    {
+                        <p>
+                            <a class="btn btn-default" href="@Url.Action("Create", "Topic")"><span class="fa fa-question"></span>Just Ask</a>
+                        </p>
+                    }
+                    else
+                    {
+                        <p>Sign in to get started!</p>
+                        <p>
+                            <a class="btn btn-default" href="@Url.Action("Login", "Account")"><span class="fa fa-sign-in"></span> Sign in</a>
+                            <a class="btn btn-default" href="@Url.Action("Register", "Account")">Register</a>
+                        </p>
+                    }
+
+                </div>
+            </div>
+            <div class="item">
+                <div class="jumbotron">
+                    <h1>Our subforums<br /></h1>
+                    <p>
+                        We have a lot of discussion in a lot of fields such as Java, C#, C++, Python, PHP and many others!
+                        <br />
+                        Try it! Look through what we have for you!
+                        <br />
+                        <br/>
+                    </p>
+
+
+                    @if (Request.IsAuthenticated && User.IsInRole("User"))
+                    {
+                        <a class="btn btn-default" href="@Url.Action("ForumList", "Forum")"><span class="fa fa-search"></span>Search for</a>
+                    }
+                    else
+                    {
+                        <p>Sign in to get started!</p>
+                        <p>
+                            <a class="btn btn-default" href="@Url.Action("Login", "Account")"><span class="fa fa-sign-in"></span> Sign in</a>
+                            <a class="btn btn-default" href="@Url.Action("Register", "Account")">Register</a>
+                        </p>
+                    }
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>

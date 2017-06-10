@@ -1,0 +1,89 @@
+﻿@{
+    ViewBag.Title = "Topics";
+}
+
+
+
+<h1>Topic lists</h1>
+
+<div id="ForNewTopic"></div>
+<div class="row">
+<div class="col-md-12">
+       
+    @if (Request.IsAuthenticated)
+    {
+        <div class="col-md-6">
+            <h3>My topics</h3>
+            <h4> @ViewBag.EmptyListOfTopics</h4>
+
+            <p>
+                <a class="btn btn-success" href="/Topic/Create"><span class="fa fa-pencil fa-fw"></span> Create topic</a>
+            </p>
+
+
+            @foreach (var item in ViewBag.UserTopics)
+            {
+                <div class="col-md-9">
+                    <h4><a href="/Topic/TopicPosts/@item.Id">@item.Title </a></h4>
+                    <span><i class="fa fa-user"></i> @item.UserName</span>
+                    <span><i class="fa fa-calendar"></i> @item.CreationDate</span>
+                    <br/>
+                    <br/>
+                </div>
+                <div class="col-md-1">
+                    <h4>@item.PostCount</h4>
+                    <h5>posts</h5>
+                    <br/>
+                    <br/>
+                </div>
+                if (User.IsInRole("Administrator") || User.IsInRole("Moderator"))
+                {
+                    <div class="col-md-1">
+                        <a class="btn btn-danger" href="/Topic/DeleteTopic?topicId=@item.Id"><span class="fa fa-trash-o fa-lg"></span> Delete </a>
+                        <br/>
+                        <br/>
+                    </div>
+                }
+            }
+        </div>
+    }
+
+    <div class="col-md-6">
+        <h3>The latest topics</h3>
+        @foreach (var item in ViewBag.LatestTopics)
+        {
+            <div class="col-md-8">
+                <br/>
+                <br/>
+                <h4><a href="/Topic/TopicPosts/@item.Id">@item.Title </a></h4>
+                <span><i class="fa fa-user"></i> @item.UserName</span>
+                <span><i class="fa fa-calendar"></i> @item.CreationDate</span>
+            </div>
+            <div class="col-md-2">
+                <br/>
+                <br/>
+                <h4>@item.PostCount</h4>
+                <h5>posts</h5>
+            </div>
+            if (User.IsInRole("Administrator") || User.IsInRole("Moderator"))
+            {
+                <div class="col-md-1">
+                    <br/>
+                    <br/>
+                    <a class="btn btn-danger" href="/Topic/DeleteTopic?topicId=@item.Id"><span class="fa fa-trash-o fa-lg"></span> Delete </a>
+                </div>
+            }
+        }
+    </div>
+       
+    @if (!Request.IsAuthenticated)
+    {
+        <div class="col-md-6">
+            <br/>
+            <br/>
+            <h4> If you have a question, please <a class="btn btn-default" href="@Url.Action("Login", "Account")"><span class="fa fa-sign-in"></span> Sign in</a> or <a class="btn btn-default" href="@Url.Action("Register", "Account")">Register</a></h4>
+        </div>
+    }
+                
+        </div>
+   </div>

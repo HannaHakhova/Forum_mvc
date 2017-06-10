@@ -1,0 +1,48 @@
+﻿@using FORUM.WEB.Models
+@model TopicModel
+
+@{
+    ViewBag.Title = "Create topic";
+}
+
+<div class="container">
+    <h3>Create topic</h3>
+    <div class="row">
+        <div class="col-md-6">
+            @using (Html.BeginForm("Create", "Topic", FormMethod.Post))
+            {
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <select name="ForumId">
+                            <option value="0">Choose subforum of topic</option>
+                            @foreach (ForumModel forum in ViewBag.Forums)
+                            {
+                                <option value="@forum.Id">@forum.Name</option>
+                            }
+                        </select>
+                        @Html.ValidationMessageFor(model => model.ForumId, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.ValidationSummary(true, "Please, choose subforum", new { @class = "text-danger" })
+                    <div class="panel-heading">Topic title</div>
+                    <div class="panel-body">
+                        <div class="editor-field">
+                            @Html.TextAreaFor(model => model.Title, new { cols = 35, @rows = 1 })
+                            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                        <div class="panel-heading">Topic description</div>
+                        <div class="panel-body">
+                            <div class="editor-field">
+                                @Html.TextAreaFor(model => model.Description, new { cols = 35, @rows = 3 })
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+               
+                <input type="submit" value="Create topic" class="btn btn-success">
+            }
+        </div>
+    </div>
+</div>
+
